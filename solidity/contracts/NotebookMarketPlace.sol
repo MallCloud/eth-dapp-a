@@ -183,8 +183,27 @@ contract Notebook {
     **/
 
     // oraclize events to notify changes
-    /*event newOraclizeQuery(string description);
-    event newCollabAttr(string attr_info);*/
+    /*
+     * event newOraclizeQuery(string description);
+     * event newCollabAttr(string attr_info);
+     */
+
+     /**
+      * Event that creates a new notebook; is handled by api
+      * @address : address of the user that sends the request
+      * @challenge : string that contains details for notebook generation
+      */
+    event CreateNewNotebook(address sender, string challenge);
+    /**
+     * Event that asks for access for read/edit rights of a Notebook
+     * @address : address of the user that requires access
+     */
+    event AccessLevelFromUser(address sender);
+    /**
+     * Event that adds information regarding versioning into notebooks
+     * @address : address of the person who made changes into notebook
+     */
+    event AddNotebookVersion(address author);
 
     // structs used to control
     struct User {
