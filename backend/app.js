@@ -16,6 +16,10 @@ const datasetContract = DatasetContract.at(process.env.DATASET_CONTRACT || '0xf7
 // Login contract. This is specified in the login.sol file.
 const loginAttempt = loginContract.LoginAttempt();
 
+const createNewNotebook = nbContract.CreateNewNotebook();
+const accessLevelFromUser = nbContract.AccessLevelFromUser();
+const addNotebookVersion = nbContract.addNotebookVersion();
+
 const challenges = {};
 const successfulLogins = {};
 
@@ -34,6 +38,15 @@ loginAttempt.watch((error, event) => {
     if(challenges[sender] === event.args.challenge) {
         successfulLogins[sender] = true;
     }
+});
+
+createNewNotebook.watch((error, event) => {
+    if(error) {
+        console.log(error);
+        return;
+    }
+
+    console.log(event);
 });
 
 const secret = process.env.JWT_SECRET || "my super secret passcode";
@@ -122,7 +135,7 @@ app.post('/createNB', validateJwt, (req, res) => {
     }
 
     // create-notebook-request parameters :
-    // 
+    //
 });
 
 app.listen(process.env.PORT || 3000);
